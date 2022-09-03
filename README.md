@@ -1,7 +1,6 @@
 # Library API
 
 - This is just Small project to learn about API’s and GO more clearly and perfectly.
-- Video i watched to do this project is : [https://youtu.be/bj77B59nkTQ](https://youtu.be/bj77B59nkTQ) (Tech With Tim).
 - I clearly mentioned how i did and what should we do to get output in comments.
 
 1. When we initialize the API using gin we get in terminal:
@@ -40,3 +39,4 @@
     - This is Patch req - which is used to update existing data.
 
 #### - I clearly mentioned everything in comments, check it out once to understand clearly.
+- Video i watched to do this project is : [https://youtu.be/bj77B59nkTQ](https://youtu.be/bj77B59nkTQ) (Tech With Tim).
