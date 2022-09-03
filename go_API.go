@@ -61,15 +61,72 @@ func bookbyID(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, book)
 }
 
+func checkoutBook(c *gin.Context) {
+	//Command is : curl localhost:8080/checkout?id=2 --request "PATCH"
+	//checkoutBook func is used to take book from rack. if checkout is used then quantity-1 is done.
+	id, err := c.GetQuery("id")
+
+	if err == false {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"Message": "Missing id query parameter."})
+		return
+	} //error
+
+	book, ok := getBookbyID(id)
+
+	if ok != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"Message": "Missing id query parameter."})
+		return
+	} //error
+
+	if book.Quantity <= 0 {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"Message": "Book is Not-available right now."})
+		return
+	} // if book is not available of quantitiy of books is less than 0 then it return StatusBadRequest
+
+	book.Quantity = book.Quantity - 1
+	c.IndentedJSON(http.StatusOK, book)
+}
+
+func AddBook(c *gin.Context) {
+	//Command is : curl localhost:8080/Addbook?id=2 --request "PATCH"
+	//AddBook func is used to add book to rack. if AddBook is used then quantity+1 is done.
+	id, err := c.GetQuery("id")
+
+	if err == false {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"Message": "Missing id query parameter."})
+		return
+	} //error
+
+	book, ok := getBookbyID(id)
+
+	if ok != nil {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"Message": "Missing id query parameter."})
+		return
+	} //error
+
+	if book.Quantity <= 0 {
+		c.IndentedJSON(http.StatusBadRequest, gin.H{"Message": "Book is Not-available right now."})
+		return
+	} // if book is not available of quantitiy of books is less than 0 then it return StatusBadRequest
+
+	book.Quantity = book.Quantity + 1
+	c.IndentedJSON(http.StatusOK, book)
+}
+
 func main() {
 	router := gin.Default()
 	//.GET is the get request we creating to get the data.
 	//.RUN is the request to get server started.
+	//.PATCH is the request to we creating to update existing data.
 	router.GET("/books", getbooks) // To get the all books.
 
 	router.GET("/books/:id", bookbyID) // To get the book with any ID.
 
 	router.POST("/books", updatebooks) // This is post req. UpdateBook
+
+	router.PATCH("/checkout", checkoutBook) // This is Patch request.
+	//  |-> we are updating the existing file so we use PATCH.
+	router.PATCH("/Addbook", AddBook) // This is Patch request.
 
 	router.Run("localhost:8080") // for initilizing the server.
 }
