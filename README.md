@@ -6,7 +6,7 @@
 1. When we initialize the API using gin we get in terminal:
 
     ![Untitled](https://user-images.githubusercontent.com/57310710/188282849-d3c3c7fb-290a-45e2-bf55-5c97577e0aac.png)    
-    - command to enter in terminal is : go run .
+    - command to enter in terminal is : go run 
     - Then we need to open separate terminal to write commands like getting data, updating data etc.
 
 
